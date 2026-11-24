@@ -13,5 +13,15 @@ public enum LoyaltyCardField {
     barcodeType,
     headerColor,
     starStatus,
-    archiveStatus
+    archiveStatus,
+    holderName,
+    holderAddress,
+    holderPhone,
+    holderEmail,
+    businessName,
+    businessAddress,
+    businessPhone,
+    businessWebsite,
+    businessEmail,
+    personalDetails
 }
