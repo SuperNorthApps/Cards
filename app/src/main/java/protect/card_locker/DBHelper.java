@@ -601,6 +601,20 @@ public class DBHelper extends SQLiteOpenHelper {
             final String barcodeId, final CatimaBarcode barcodeType, final @NonNull Charset barcodeEncoding,
             final Integer headerColor,
             final int starStatus, final Long lastUsed, final int archiveStatus) {
+        return insertLoyaltyCard(database, context, store, note, validFrom, expiry, balance, balanceType,
+                cardId, barcodeId, barcodeType, barcodeEncoding, headerColor, starStatus, lastUsed, archiveStatus,
+                "", "", "", "", "", "", "", "", "", "");
+    }
+
+    public static long insertLoyaltyCard(
+            final SQLiteDatabase database, final Context context, final String store, final String note, final Date validFrom,
+            final Date expiry, final BigDecimal balance, final Currency balanceType, final String cardId,
+            final String barcodeId, final CatimaBarcode barcodeType, final @NonNull Charset barcodeEncoding,
+            final Integer headerColor,
+            final int starStatus, final Long lastUsed, final int archiveStatus,
+            final String holderName, final String holderAddress, final String holderPhone, final String holderEmail,
+            final String businessName, final String businessAddress, final String businessPhone,
+            final String businessWebsite, final String businessEmail, final String personalDetails) {
         database.beginTransaction();
 
         // Card
@@ -619,6 +633,16 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(LoyaltyCardDbIds.STAR_STATUS, starStatus);
         contentValues.put(LoyaltyCardDbIds.LAST_USED, lastUsed != null ? lastUsed : Utils.getUnixTime());
         contentValues.put(LoyaltyCardDbIds.ARCHIVE_STATUS, archiveStatus);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_NAME, holderName);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_ADDRESS, holderAddress);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_PHONE, holderPhone);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_EMAIL, holderEmail);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_NAME, businessName);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_ADDRESS, businessAddress);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_PHONE, businessPhone);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_WEBSITE, businessWebsite);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_EMAIL, businessEmail);
+        contentValues.put(LoyaltyCardDbIds.PERSONAL_DETAILS, personalDetails);
         long id = database.insert(LoyaltyCardDbIds.TABLE, null, contentValues);
 
         // FTS
@@ -639,6 +663,21 @@ public class DBHelper extends SQLiteOpenHelper {
             final CatimaBarcode barcodeType, final @NonNull Charset barcodeEncoding,
             final Integer headerColor, final int starStatus,
             final Long lastUsed, final int archiveStatus) {
+        return insertLoyaltyCard(database, context, id, store, note, validFrom, expiry, balance, balanceType,
+                cardId, barcodeId, barcodeType, barcodeEncoding, headerColor, starStatus, lastUsed, archiveStatus,
+                "", "", "", "", "", "", "", "", "", "");
+    }
+
+    public static long insertLoyaltyCard(
+            final SQLiteDatabase database, final Context context, final int id, final String store, final String note,
+            final Date validFrom, final Date expiry, final BigDecimal balance,
+            final Currency balanceType, final String cardId, final String barcodeId,
+            final CatimaBarcode barcodeType, final @NonNull Charset barcodeEncoding,
+            final Integer headerColor, final int starStatus,
+            final Long lastUsed, final int archiveStatus,
+            final String holderName, final String holderAddress, final String holderPhone, final String holderEmail,
+            final String businessName, final String businessAddress, final String businessPhone,
+            final String businessWebsite, final String businessEmail, final String personalDetails) {
         database.beginTransaction();
 
         // Card
@@ -658,6 +697,16 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(LoyaltyCardDbIds.STAR_STATUS, starStatus);
         contentValues.put(LoyaltyCardDbIds.LAST_USED, lastUsed != null ? lastUsed : Utils.getUnixTime());
         contentValues.put(LoyaltyCardDbIds.ARCHIVE_STATUS, archiveStatus);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_NAME, holderName);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_ADDRESS, holderAddress);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_PHONE, holderPhone);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_EMAIL, holderEmail);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_NAME, businessName);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_ADDRESS, businessAddress);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_PHONE, businessPhone);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_WEBSITE, businessWebsite);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_EMAIL, businessEmail);
+        contentValues.put(LoyaltyCardDbIds.PERSONAL_DETAILS, personalDetails);
         database.insert(LoyaltyCardDbIds.TABLE, null, contentValues);
 
         // FTS
@@ -678,6 +727,21 @@ public class DBHelper extends SQLiteOpenHelper {
             final CatimaBarcode barcodeType, final @NonNull Charset barcodeEncoding,
             final Integer headerColor, final int starStatus,
             final Long lastUsed, final int archiveStatus) {
+        return updateLoyaltyCard(database, context, id, store, note, validFrom, expiry, balance, balanceType,
+                cardId, barcodeId, barcodeType, barcodeEncoding, headerColor, starStatus, lastUsed, archiveStatus,
+                "", "", "", "", "", "", "", "", "", "");
+    }
+
+    public static boolean updateLoyaltyCard(
+            SQLiteDatabase database, final Context context, final int id, final String store, final String note,
+            final Date validFrom, final Date expiry, final BigDecimal balance,
+            final Currency balanceType, final String cardId, final String barcodeId,
+            final CatimaBarcode barcodeType, final @NonNull Charset barcodeEncoding,
+            final Integer headerColor, final int starStatus,
+            final Long lastUsed, final int archiveStatus,
+            final String holderName, final String holderAddress, final String holderPhone, final String holderEmail,
+            final String businessName, final String businessAddress, final String businessPhone,
+            final String businessWebsite, final String businessEmail, final String personalDetails) {
         database.beginTransaction();
 
         // Card
@@ -696,6 +760,16 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(LoyaltyCardDbIds.STAR_STATUS, starStatus);
         contentValues.put(LoyaltyCardDbIds.LAST_USED, lastUsed != null ? lastUsed : Utils.getUnixTime());
         contentValues.put(LoyaltyCardDbIds.ARCHIVE_STATUS, archiveStatus);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_NAME, holderName);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_ADDRESS, holderAddress);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_PHONE, holderPhone);
+        contentValues.put(LoyaltyCardDbIds.HOLDER_EMAIL, holderEmail);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_NAME, businessName);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_ADDRESS, businessAddress);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_PHONE, businessPhone);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_WEBSITE, businessWebsite);
+        contentValues.put(LoyaltyCardDbIds.BUSINESS_EMAIL, businessEmail);
+        contentValues.put(LoyaltyCardDbIds.PERSONAL_DETAILS, personalDetails);
 
         int rowsUpdated = database.update(LoyaltyCardDbIds.TABLE, contentValues,
                 whereAttrs(LoyaltyCardDbIds.ID), withArgs(id));
