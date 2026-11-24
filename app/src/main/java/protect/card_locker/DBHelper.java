@@ -30,7 +30,7 @@ import protect.card_locker.contentprovider.CardsContentProvider;
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Catima.db";
     public static final int ORIGINAL_DATABASE_VERSION = 1;
-    public static final int DATABASE_VERSION = 20;
+    public static final int DATABASE_VERSION = 21;
 
     // NB: changing these values requires a migration
     public static final int DEFAULT_ZOOM_LEVEL = 100;
@@ -62,6 +62,16 @@ public class DBHelper extends SQLiteOpenHelper {
         public static final String ZOOM_LEVEL = "zoomlevel";
         public static final String ZOOM_LEVEL_WIDTH = "zoomlevelwidth";
         public static final String ARCHIVE_STATUS = "archive";
+        public static final String HOLDER_NAME = "holdername";
+        public static final String HOLDER_ADDRESS = "holderaddress";
+        public static final String HOLDER_PHONE = "holderphone";
+        public static final String HOLDER_EMAIL = "holderemail";
+        public static final String BUSINESS_NAME = "businessname";
+        public static final String BUSINESS_ADDRESS = "businessaddress";
+        public static final String BUSINESS_PHONE = "businessphone";
+        public static final String BUSINESS_WEBSITE = "businesswebsite";
+        public static final String BUSINESS_EMAIL = "businessemail";
+        public static final String PERSONAL_DETAILS = "personaldetails";
     }
 
     public static class LoyaltyCardDbIdsGroups {
@@ -126,7 +136,17 @@ public class DBHelper extends SQLiteOpenHelper {
                 LoyaltyCardDbIds.LAST_USED + " INTEGER DEFAULT '0', " +
                 LoyaltyCardDbIds.ZOOM_LEVEL + " INTEGER DEFAULT '" + DEFAULT_ZOOM_LEVEL + "', " +
                 LoyaltyCardDbIds.ZOOM_LEVEL_WIDTH + " INTEGER DEFAULT '" + DEFAULT_ZOOM_LEVEL_WIDTH + "', " +
-                LoyaltyCardDbIds.ARCHIVE_STATUS + " INTEGER DEFAULT '0' )");
+                LoyaltyCardDbIds.ARCHIVE_STATUS + " INTEGER DEFAULT '0', " +
+                LoyaltyCardDbIds.HOLDER_NAME + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.HOLDER_ADDRESS + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.HOLDER_PHONE + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.HOLDER_EMAIL + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.BUSINESS_NAME + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.BUSINESS_ADDRESS + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.BUSINESS_PHONE + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.BUSINESS_WEBSITE + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.BUSINESS_EMAIL + " TEXT not null DEFAULT '', " +
+                LoyaltyCardDbIds.PERSONAL_DETAILS + " TEXT not null DEFAULT '' )");
 
         // create associative table for cards in groups
         db.execSQL("CREATE TABLE " + LoyaltyCardDbIdsGroups.TABLE + "(" +
@@ -497,6 +517,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
             db.setTransactionSuccessful();
             db.endTransaction();
+        }
+
+        if (oldVersion < 21 && newVersion >= 21) {
+            String[] newColumns = {
+                    LoyaltyCardDbIds.HOLDER_NAME,
+                    LoyaltyCardDbIds.HOLDER_ADDRESS,
+                    LoyaltyCardDbIds.HOLDER_PHONE,
+                    LoyaltyCardDbIds.HOLDER_EMAIL,
+                    LoyaltyCardDbIds.BUSINESS_NAME,
+                    LoyaltyCardDbIds.BUSINESS_ADDRESS,
+                    LoyaltyCardDbIds.BUSINESS_PHONE,
+                    LoyaltyCardDbIds.BUSINESS_WEBSITE,
+                    LoyaltyCardDbIds.BUSINESS_EMAIL,
+                    LoyaltyCardDbIds.PERSONAL_DETAILS
+            };
+            for (String col : newColumns) {
+                db.execSQL("ALTER TABLE " + LoyaltyCardDbIds.TABLE + " ADD COLUMN " + col + " TEXT not null DEFAULT ''");
+            }
         }
 
     }
