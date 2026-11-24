@@ -397,4 +397,28 @@
     <string name="wear_bt_critical_error_channel_name">Wear OS sync critical error</string>
     <string name="android_blocked_startup">Android blocked starting the Wear OS service</string>
     <string name="view_more">View more</string>
+    <string name="sectionCardholderDetails">Cardholder details</string>
+    <string name="holderName">Name</string>
+    <string name="holderAddress">Address</string>
+    <string name="holderPhone">Phone number</string>
+    <string name="holderEmail">Email address</string>
+    <string name="sectionBusinessDetails">Business details</string>
+    <string name="businessName">Business name</string>
+    <string name="businessAddress">Business address</string>
+    <string name="businessPhone">Business phone number</string>
+    <string name="businessWebsite">Business website</string>
+    <string name="businessEmail">Business email</string>
+    <string name="sectionPersonalDetails">Personal details</string>
+    <string name="personalDetails">Personal details</string>
+
+    <string name="holderNameSentence">Name: %s</string>
+    <string name="holderAddressSentence">Address: %s</string>
+    <string name="holderPhoneSentence">Phone: %s</string>
+    <string name="holderEmailSentence">Email: %s</string>
+    <string name="businessNameSentence">Business: %s</string>
+    <string name="businessAddressSentence">Business address: %s</string>
+    <string name="businessPhoneSentence">Business phone: %s</string>
+    <string name="businessWebsiteSentence">Website: %s</string>
+    <string name="businessEmailSentence">Business email: %s</string>
+    <string name="personalDetailsSentence">Personal details: %s</string>
 </resources>
