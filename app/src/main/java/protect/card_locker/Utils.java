@@ -946,7 +946,7 @@ public class Utils {
         Settings settings = new Settings(activity);
 
         Resources.Theme theme = activity.getTheme();
-        DynamicColors.applyToActivityIfAvailable(activity);
+        // DynamicColors.applyToActivityIfAvailable(activity);
 
         if (isDarkModeEnabled(activity) && settings.getOledDark()) {
             theme.applyStyle(R.style.DarkBackground, true);
