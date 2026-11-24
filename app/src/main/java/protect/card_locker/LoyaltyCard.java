@@ -41,6 +41,17 @@ public class LoyaltyCard {
     public int zoomLevelWidth;
     public int archiveStatus;
 
+    // New cardholder, business, and personal fields
+    public String holderName;
+    public String holderAddress;
+    public String holderPhone;
+    public String holderEmail;
+    public String businessName;
+    public String businessAddress;
+    public String businessPhone;
+    public String businessWebsite;
+    public String businessEmail;
+    public String personalDetails;
 
     @Nullable
     private Bitmap imageThumbnail;
@@ -72,6 +83,16 @@ public class LoyaltyCard {
     public static final String BUNDLE_LOYALTY_CARD_ZOOM_LEVEL = "loyaltyCardZoomLevel";
     public static final String BUNDLE_LOYALTY_CARD_ZOOM_LEVEL_WIDTH = "loyaltyCardZoomLevelWidth";
     public static final String BUNDLE_LOYALTY_CARD_ARCHIVE_STATUS = "loyaltyCardArchiveStatus";
+    public static final String BUNDLE_LOYALTY_CARD_HOLDER_NAME = "loyaltyCardHolderName";
+    public static final String BUNDLE_LOYALTY_CARD_HOLDER_ADDRESS = "loyaltyCardHolderAddress";
+    public static final String BUNDLE_LOYALTY_CARD_HOLDER_PHONE = "loyaltyCardHolderPhone";
+    public static final String BUNDLE_LOYALTY_CARD_HOLDER_EMAIL = "loyaltyCardHolderEmail";
+    public static final String BUNDLE_LOYALTY_CARD_BUSINESS_NAME = "loyaltyCardBusinessName";
+    public static final String BUNDLE_LOYALTY_CARD_BUSINESS_ADDRESS = "loyaltyCardBusinessAddress";
+    public static final String BUNDLE_LOYALTY_CARD_BUSINESS_PHONE = "loyaltyCardBusinessPhone";
+    public static final String BUNDLE_LOYALTY_CARD_BUSINESS_WEBSITE = "loyaltyCardBusinessWebsite";
+    public static final String BUNDLE_LOYALTY_CARD_BUSINESS_EMAIL = "loyaltyCardBusinessEmail";
+    public static final String BUNDLE_LOYALTY_CARD_PERSONAL_DETAILS = "loyaltyCardPersonalDetails";
     public static final String BUNDLE_LOYALTY_CARD_IMAGE_THUMBNAIL = "loyaltyCardImageThumbnail";
     public static final String BUNDLE_LOYALTY_CARD_IMAGE_FRONT = "loyaltyCardImageFront";
     public static final String BUNDLE_LOYALTY_CARD_IMAGE_BACK = "loyaltyCardImageBack";
@@ -101,36 +122,51 @@ public class LoyaltyCard {
         setZoomLevel(100);
         setZoomLevelWidth(100);
         setArchiveStatus(0);
+        setHolderName("");
+        setHolderAddress("");
+        setHolderPhone("");
+        setHolderEmail("");
+        setBusinessName("");
+        setBusinessAddress("");
+        setBusinessPhone("");
+        setBusinessWebsite("");
+        setBusinessEmail("");
+        setPersonalDetails("");
         setImageThumbnail(null, null);
         setImageFront(null, null);
         setImageBack(null, null);
     }
 
     /**
-     * Create a new loyalty card
-     *
-     * @param id
-     * @param store
-     * @param note
-     * @param validFrom
-     * @param expiry
-     * @param balance
-     * @param balanceType
-     * @param cardId
-     * @param barcodeId
-     * @param barcodeType
-     * @param headerColor
-     * @param starStatus
-     * @param lastUsed
-     * @param zoomLevel
-     * @param zoomLevelWidth
-     * @param archiveStatus
+     * Backward-compatible constructor for existing importers and parsers
      */
     public LoyaltyCard(final int id, final String store, final String note, @Nullable final Date validFrom,
                        @Nullable final Date expiry, final BigDecimal balance, @Nullable final Currency balanceType,
                        final String cardId, @Nullable final String barcodeId, @Nullable final CatimaBarcode barcodeType,
                        @NonNull final Charset barcodeEncoding, @Nullable final Integer headerColor, final int starStatus,
                        final long lastUsed, final int zoomLevel, final int zoomLevelWidth, final int archiveStatus,
+                       @Nullable Bitmap imageThumbnail, @Nullable String imageThumbnailPath,
+                       @Nullable Bitmap imageFront, @Nullable String imageFrontPath,
+                       @Nullable Bitmap imageBack, @Nullable String imageBackPath) {
+        this(id, store, note, validFrom, expiry, balance, balanceType, cardId, barcodeId, barcodeType,
+                barcodeEncoding, headerColor, starStatus, lastUsed, zoomLevel, zoomLevelWidth, archiveStatus,
+                "", "", "", "", "", "", "", "", "", "",
+                imageThumbnail, imageThumbnailPath, imageFront, imageFrontPath, imageBack, imageBackPath);
+    }
+
+    /**
+     * Full constructor including cardholder, business, and personal fields
+     */
+    public LoyaltyCard(final int id, final String store, final String note, @Nullable final Date validFrom,
+                       @Nullable final Date expiry, final BigDecimal balance, @Nullable final Currency balanceType,
+                       final String cardId, @Nullable final String barcodeId, @Nullable final CatimaBarcode barcodeType,
+                       @NonNull final Charset barcodeEncoding, @Nullable final Integer headerColor, final int starStatus,
+                       final long lastUsed, final int zoomLevel, final int zoomLevelWidth, final int archiveStatus,
+                       @NonNull final String holderName, @NonNull final String holderAddress,
+                       @NonNull final String holderPhone, @NonNull final String holderEmail,
+                       @NonNull final String businessName, @NonNull final String businessAddress,
+                       @NonNull final String businessPhone, @NonNull final String businessWebsite,
+                       @NonNull final String businessEmail, @NonNull final String personalDetails,
                        @Nullable Bitmap imageThumbnail, @Nullable String imageThumbnailPath,
                        @Nullable Bitmap imageFront, @Nullable String imageFrontPath,
                        @Nullable Bitmap imageBack, @Nullable String imageBackPath) {
@@ -151,6 +187,16 @@ public class LoyaltyCard {
         setZoomLevel(zoomLevel);
         setZoomLevelWidth(zoomLevelWidth);
         setArchiveStatus(archiveStatus);
+        setHolderName(holderName);
+        setHolderAddress(holderAddress);
+        setHolderPhone(holderPhone);
+        setHolderEmail(holderEmail);
+        setBusinessName(businessName);
+        setBusinessAddress(businessAddress);
+        setBusinessPhone(businessPhone);
+        setBusinessWebsite(businessWebsite);
+        setBusinessEmail(businessEmail);
+        setPersonalDetails(personalDetails);
         setImageThumbnail(imageThumbnail, imageThumbnailPath);
         setImageFront(imageFront, imageFrontPath);
         setImageBack(imageBack, imageBackPath);
@@ -294,6 +340,52 @@ public class LoyaltyCard {
         this.archiveStatus = archiveStatus;
     }
 
+    public void setHolderName(@NonNull String holderName) {
+        this.holderName = holderName;
+    }
+
+    public void setHolderAddress(@NonNull String holderAddress) {
+        this.holderAddress = holderAddress;
+    }
+
+    public void setHolderPhone(@NonNull String holderPhone) {
+        this.holderPhone = holderPhone;
+    }
+
+    public void setHolderEmail(@NonNull String holderEmail) {
+        this.holderEmail = holderEmail;
+    }
+
+    public void setBusinessName(@NonNull String businessName) {
+        this.businessName = businessName;
+    }
+
+    public void setBusinessAddress(@NonNull String businessAddress) {
+        this.businessAddress = businessAddress;
+    }
+
+    public void setBusinessPhone(@NonNull String businessPhone) {
+        this.businessPhone = businessPhone;
+    }
+
+    public void setBusinessWebsite(@NonNull String businessWebsite) {
+        this.businessWebsite = businessWebsite;
+    }
+
+    public void setBusinessEmail(@NonNull String businessEmail) {
+        this.businessEmail = businessEmail;
+    }
+
+    public void setPersonalDetails(@NonNull String personalDetails) {
+        this.personalDetails = personalDetails;
+    }
+
+    public boolean hasExtraDetails() {
+        return !holderName.isEmpty() || !holderAddress.isEmpty() || !holderPhone.isEmpty() || !holderEmail.isEmpty()
+                || !businessName.isEmpty() || !businessAddress.isEmpty() || !businessPhone.isEmpty()
+                || !businessWebsite.isEmpty() || !businessEmail.isEmpty() || !personalDetails.isEmpty();
+    }
+
     public void setImageThumbnail(@Nullable Bitmap imageThumbnail, @Nullable String imageThumbnailPath) {
         if (imageThumbnail != null && imageThumbnailPath != null) {
             throw new IllegalArgumentException("Cannot set both thumbnail and path");
@@ -425,6 +517,36 @@ public class LoyaltyCard {
         } else if (requireFull) {
             throw new IllegalArgumentException("Missing key " + BUNDLE_LOYALTY_CARD_ARCHIVE_STATUS);
         }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_HOLDER_NAME)) {
+            setHolderName(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_HOLDER_NAME)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_HOLDER_ADDRESS)) {
+            setHolderAddress(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_HOLDER_ADDRESS)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_HOLDER_PHONE)) {
+            setHolderPhone(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_HOLDER_PHONE)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_HOLDER_EMAIL)) {
+            setHolderEmail(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_HOLDER_EMAIL)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_BUSINESS_NAME)) {
+            setBusinessName(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_BUSINESS_NAME)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_BUSINESS_ADDRESS)) {
+            setBusinessAddress(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_BUSINESS_ADDRESS)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_BUSINESS_PHONE)) {
+            setBusinessPhone(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_BUSINESS_PHONE)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_BUSINESS_WEBSITE)) {
+            setBusinessWebsite(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_BUSINESS_WEBSITE)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_BUSINESS_EMAIL)) {
+            setBusinessEmail(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_BUSINESS_EMAIL)));
+        }
+        if (bundle.containsKey(BUNDLE_LOYALTY_CARD_PERSONAL_DETAILS)) {
+            setPersonalDetails(Objects.requireNonNull(bundle.getString(BUNDLE_LOYALTY_CARD_PERSONAL_DETAILS)));
+        }
         if (bundle.containsKey(BUNDLE_LOYALTY_CARD_IMAGE_THUMBNAIL)) {
             setImageThumbnail(null, bundle.getString(BUNDLE_LOYALTY_CARD_IMAGE_THUMBNAIL));
         } else if (requireFull) {
@@ -495,178 +617,4 @@ public class LoyaltyCard {
         if (!exportIsLimited || exportLimit.contains(BUNDLE_LOYALTY_CARD_ZOOM_LEVEL_WIDTH)) {
             bundle.putInt(BUNDLE_LOYALTY_CARD_ZOOM_LEVEL_WIDTH, zoomLevelWidth);
         }
-        if (!exportIsLimited || exportLimit.contains(BUNDLE_LOYALTY_CARD_ARCHIVE_STATUS)) {
-            bundle.putInt(BUNDLE_LOYALTY_CARD_ARCHIVE_STATUS, archiveStatus);
-        }
-        // There is an (undocumented) size limit to bundles of around 2MB(?), when going over it you will experience a random crash
-        // So, instead of storing the bitmaps directly, we write the bitmap to a temp file and store the path
-        if (!exportIsLimited || exportLimit.contains(BUNDLE_LOYALTY_CARD_IMAGE_THUMBNAIL)) {
-            Bitmap thumbnail = getImageThumbnail(context);
-            if (thumbnail != null) {
-                Utils.saveTempImage(context, thumbnail, TEMP_IMAGE_THUMBNAIL_FILE_NAME, Bitmap.CompressFormat.PNG);
-                bundle.putString(BUNDLE_LOYALTY_CARD_IMAGE_THUMBNAIL, TEMP_IMAGE_THUMBNAIL_FILE_NAME);
-            } else {
-                bundle.putString(BUNDLE_LOYALTY_CARD_IMAGE_THUMBNAIL, null);
-            }
-        }
-        if (!exportIsLimited || exportLimit.contains(BUNDLE_LOYALTY_CARD_IMAGE_FRONT)) {
-            Bitmap front = getImageFront(context);
-            if (front != null) {
-                Utils.saveTempImage(context, front, TEMP_IMAGE_FRONT_FILE_NAME, Bitmap.CompressFormat.PNG);
-                bundle.putString(BUNDLE_LOYALTY_CARD_IMAGE_FRONT, TEMP_IMAGE_FRONT_FILE_NAME);
-            } else {
-                bundle.putString(BUNDLE_LOYALTY_CARD_IMAGE_FRONT, null);
-            }
-        }
-        if (!exportIsLimited || exportLimit.contains(BUNDLE_LOYALTY_CARD_IMAGE_BACK)) {
-            Bitmap back = getImageBack(context);
-            if (back != null) {
-                Utils.saveTempImage(context, back, TEMP_IMAGE_BACK_FILE_NAME, Bitmap.CompressFormat.PNG);
-                bundle.putString(BUNDLE_LOYALTY_CARD_IMAGE_BACK, TEMP_IMAGE_BACK_FILE_NAME);
-            } else {
-                bundle.putString(BUNDLE_LOYALTY_CARD_IMAGE_BACK, null);
-            }
-        }
-
-        return bundle;
-    }
-
-    public static LoyaltyCard fromCursor(Context context, Cursor cursor) {
-        // id
-        int id = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.ID));
-        // store
-        String store = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.STORE));
-        // note
-        String note = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.NOTE));
-        // validFrom
-        long validFromLong = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.VALID_FROM));
-        Date validFrom = validFromLong > 0 ? new Date(validFromLong) : null;
-        // expiry
-        long expiryLong = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.EXPIRY));
-        Date expiry = expiryLong > 0 ? new Date(expiryLong) : null;
-        // balance
-        BigDecimal balance = new BigDecimal(cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.BALANCE)));
-        // balanceType
-        int balanceTypeColumn = cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.BALANCE_TYPE);
-        Currency balanceType = !cursor.isNull(balanceTypeColumn) ? Currency.getInstance(cursor.getString(balanceTypeColumn)) : null;
-        // cardId
-        String cardId = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.CARD_ID));
-        // barcodeId
-        int barcodeIdColumn = cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.BARCODE_ID);
-        String barcodeId = !cursor.isNull(barcodeIdColumn) ? cursor.getString(barcodeIdColumn) : null;
-        // barcodeType
-        int barcodeTypeColumn = cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.BARCODE_TYPE);
-        CatimaBarcode barcodeType = !cursor.isNull(barcodeTypeColumn) ? CatimaBarcode.fromName(cursor.getString(barcodeTypeColumn)) : null;
-        // barcodeEncoding
-        Charset barcodeEncoding = Charset.forName(cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.BARCODE_ENCODING)));
-        // headerColor
-        int headerColorColumn = cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.HEADER_COLOR);
-        Integer headerColor = !cursor.isNull(headerColorColumn) ? cursor.getInt(headerColorColumn) : null;
-        // starStatus
-        int starStatus = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.STAR_STATUS));
-        // lastUsed
-        long lastUsed = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.LAST_USED));
-        // zoomLevel
-        int zoomLevel = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.ZOOM_LEVEL));
-        // zoomLevelWidth
-        int zoomLevelWidth = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.ZOOM_LEVEL_WIDTH));
-        // archiveStatus
-        int archiveStatus = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.LoyaltyCardDbIds.ARCHIVE_STATUS));
-
-        return new LoyaltyCard(
-                id,
-                store,
-                note,
-                validFrom,
-                expiry,
-                balance,
-                balanceType,
-                cardId,
-                barcodeId,
-                barcodeType,
-                barcodeEncoding,
-                headerColor,
-                starStatus,
-                lastUsed,
-                zoomLevel,
-                zoomLevelWidth,
-                archiveStatus,
-                null,
-                Utils.getCardImageFileName(id, ImageLocationType.icon),
-                null,
-                Utils.getCardImageFileName(id, ImageLocationType.front),
-                null,
-                Utils.getCardImageFileName(id, ImageLocationType.back)
-        );
-    }
-
-    public static boolean isDuplicate(Context context, final LoyaltyCard a, final LoyaltyCard b) {
-        // Note: Bitmap comparing is slow, be careful when calling this method
-        // Skip lastUsed & zoomLevel*
-        return a.id == b.id && // non-nullable int
-                a.store.equals(b.store) && // non-nullable String
-                a.note.equals(b.note) && // non-nullable String
-                Utils.equals(a.validFrom, b.validFrom) && // nullable Date
-                Utils.equals(a.expiry, b.expiry) && // nullable Date
-                a.balance.equals(b.balance) && // non-nullable BigDecimal
-                Utils.equals(a.balanceType, b.balanceType) && // nullable Currency
-                a.cardId.equals(b.cardId) && // non-nullable String
-                Utils.equals(a.barcodeId, b.barcodeId) && // nullable String
-                Utils.equals(a.barcodeType == null ? null : a.barcodeType.format(),
-                        b.barcodeType == null ? null : b.barcodeType.format()) && // nullable CatimaBarcode with no overridden .equals(), so we need to check .format()
-                a.barcodeEncoding.name().equals(b.barcodeEncoding.name()) && // non-nullable String
-                Utils.equals(a.headerColor, b.headerColor) && // nullable Integer
-                a.starStatus == b.starStatus && // non-nullable int
-                a.archiveStatus == b.archiveStatus && // non-nullable int
-                nullableBitmapsEqual(a.getImageThumbnail(context), b.getImageThumbnail(context)) && // nullable Bitmap
-                nullableBitmapsEqual(a.getImageFront(context), b.getImageFront(context)) && // nullable Bitmap
-                nullableBitmapsEqual(a.getImageBack(context), b.getImageBack(context)); // nullable Bitmap
-    }
-
-    public static boolean nullableBitmapsEqual(@Nullable Bitmap a, @Nullable Bitmap b) {
-        if (a == null && b == null) {
-            return true;
-        }
-
-        if (a != null && b != null) {
-            return a.sameAs(b);
-        }
-
-        // One is null and the other isn't, so it's not equal
-        return false;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return String.format(
-                "LoyaltyCard{%n  id=%s,%n  store=%s,%n  note=%s,%n  validFrom=%s,%n  expiry=%s,%n"
-                        + "  balance=%s,%n  balanceType=%s,%n  cardId=%s,%n  barcodeId=%s,%n  barcodeType=%s,%n barcodeEncoding=%s,%n"
-                        + "  headerColor=%s,%n  starStatus=%s,%n  lastUsed=%s,%n  zoomLevel=%s,%n  zoomLevelWidth=%s,%n  archiveStatus=%s%n"
-                        + "  imageThumbnail=%s,%n  imageThumbnailPath=%s,%n  imageFront=%s,%n  imageFrontPath=%s,%n  imageBack=%s,%n  imageBackPath=%s,%n}",
-                this.id,
-                this.store,
-                this.note,
-                this.validFrom,
-                this.expiry,
-                this.balance,
-                this.balanceType,
-                this.cardId,
-                this.barcodeId,
-                this.barcodeType != null ? this.barcodeType.format() : null,
-                this.barcodeEncoding.name(),
-                this.headerColor,
-                this.starStatus,
-                this.lastUsed,
-                this.zoomLevel,
-                this.zoomLevelWidth,
-                this.archiveStatus,
-                this.imageThumbnail,
-                this.imageThumbnailPath,
-                this.imageFront,
-                this.imageFrontPath,
-                this.imageBack,
-                this.imageBackPath
-        );
-    }
-}
+        if (!exportIsLimited || export
