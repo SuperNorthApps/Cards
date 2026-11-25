@@ -378,6 +378,77 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 setLoyaltyCardNote(s.toString());
             }
+        binding.holderNameEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setHolderName(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.holderAddressEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setHolderAddress(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.holderPhoneEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setHolderPhone(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.holderEmailEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setHolderEmail(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.businessNameEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setBusinessName(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.businessAddressEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setBusinessAddress(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.businessPhoneEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setBusinessPhone(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.businessWebsiteEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setBusinessWebsite(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.businessEmailEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setBusinessEmail(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+        binding.personalDetailsEdit.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.getLoyaltyCard().setPersonalDetails(s.toString());
+                viewModel.setHasChanged(true);
+            }
+        });
+            
         });
 
         addDateFieldTextChangedListener(validFromField, R.string.anyDate, R.string.chooseValidFromDate, LoyaltyCardField.validFrom);
